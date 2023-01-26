@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const properties = require('../package.json')
 const User = require('./model')
-mongoose.connect('mongodb://localhost:27017/mydb', { useNewUrlParser: true });
+mongoose.connect('mongodb://mongo-container:27017/mydb', { useNewUrlParser: true });
 
 const db = mongoose.connection;
 
