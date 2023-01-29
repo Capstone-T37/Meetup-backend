@@ -25,3 +25,21 @@ services:
     container_name: authentication-microservice
     ports:
       - "4000:4000"
+  
+  location-microservice:
+    image: location-microservice
+    build:
+      context: ./location-microservice
+      dockerfile: Dockerfile
+    container_name: location-microservice
+    ports:
+      - "3030:3030"
+    depends_on:
+      -   mongo-container
+
+  mongo-location-container:
+    image: mongo
+    container_name: mongo-location-container
+    ports:
+      - "27018:27017"
+
