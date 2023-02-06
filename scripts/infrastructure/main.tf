@@ -6,6 +6,7 @@ terraform {
     }
   }
   backend "azurerm" {
+    subscription_id      = "5ef22b11-ce1d-45f6-b5ef-1356571bb8e4"
     resource_group_name  = "devopstfstates"
     storage_account_name = "aymantf"
     container_name       = "tfstatedevops"
