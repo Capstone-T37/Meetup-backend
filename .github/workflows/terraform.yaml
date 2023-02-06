@@ -3,7 +3,7 @@ name: 'Terraform'
 on:
   push:
     branches:
-    - main
+    - adding_CI/CD_pipline
   #pull_request:
  
 jobs:
