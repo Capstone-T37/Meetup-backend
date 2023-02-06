@@ -65,19 +65,11 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'plan'
-              backendServiceArm: 'MeetServiceConnection'
-              backendAzureRmResourceGroupName: '$(bkstrgrg)'
-              backendAzureRmStorageAccountName: '$(bkstrg)'
-              backendAzureRmContainerName: '$(bkcontainer)'
-              backendAzureRmKey: '$(bkstrgkey)'
+              environmentServiceNameAzureRM: 'MeetServiceConnection'
           - task: TerraformTaskV3@3
             displayName: tfapply
             inputs:
               provider: 'azurerm'
               command: 'apply'
-              backendServiceArm: 'MeetServiceConnection'
-              backendAzureRmResourceGroupName: '$(bkstrgrg)'
-              backendAzureRmStorageAccountName: '$(bkstrg)'
-              backendAzureRmContainerName: '$(bkcontainer)'
-              backendAzureRmKey: '$(bkstrgkey)'
+              environmentServiceNameAzureRM: 'MeetServiceConnection'
           
