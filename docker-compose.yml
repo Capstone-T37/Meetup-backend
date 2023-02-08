@@ -43,3 +43,13 @@ services:
     ports:
       - "27018:27017"
 
+  socket-microservice:
+    image: socket-microservice
+    build:
+      context: ./socket-microservice
+      dockerfile: Dockerfile
+    container_name: socket-microservice
+    ports:
+      - "8000:8000"
+
+
