@@ -1,10 +1,10 @@
 version: '3'
 # run with: docker-compose -f docker-compose.yml -f docker-compose-with-reloading.yml up --build
 services:
-    authentication-microservice:
-        container_name: authentication-microservice
+    location-microservice:
+        container_name: location-microservice
         volumes:
-            - "./authentication-microservice:/usr/src/app"
+            - "./location-microservice:/usr/src/app"
 
     live-reloader:
         image: apogiatzis/livereloading
@@ -12,9 +12,9 @@ services:
         privileged: true
         environment:
           - RELOAD_DELAY=1.5              # seconds
-          - RELOAD_CONTAINER=authentication-microservice
+          - RELOAD_CONTAINER=location-microservice
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock"
-            - "./authentication-microservice:/usr/src/app"
+            - "./location-microservice:/usr/src/app"
         depends_on:
-            - authentication-microservice
+            - location-microservice

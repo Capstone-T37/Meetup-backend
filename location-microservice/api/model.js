@@ -22,7 +22,6 @@ const locationSchema = new Schema({
     },
 });
 
-locationSchema.index({ location: '2dsphere' });
 locationSchema.plugin(timestamps);
 
 
