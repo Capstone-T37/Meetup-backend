@@ -7,7 +7,7 @@ const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
-db.once('open', ()=> {
+db.once('open', () => {
     console.log("we're connected!")
 });
 
@@ -22,21 +22,25 @@ let controllers = {
         });
     },
     addLocation: (req, res) => {
+        console.log(req.body);
         const location = new Location(req.body);
         console.log(location);
         location.save((err) => {
-            if (err) return res.status(500).send("Something bad happened");
+            if (err) {
+                console.log(err);
+                return res.status(500).send("Something bad happened")
+            }
             res.send("location added success");
         });
     },
-    updateLocation:(req,res)=>{
-        Location.updateOne({username:req.params.user_id},req.body,(err,user)=>{
-            if (err) return res.status(500).send("Something bad happened");
+    updateLocation: (req, res) => {
+        Location.updateOne({ user_id: req.params.user_id }, { $set: req.body }, (err, user) => {
+            if (err) return res.status(500).send(err);
             res.send(user);
         })
     },
-    deleteLocation: (req,res)=>{
-        Location.deleteOne({user_id:req.params.user_id},(err)=>{
+    deleteLocation: (req, res) => {
+        Location.deleteMany({ user_id: req.params.user_id }, (err) => {
             if (err) return res.status(500).send("Something bad happened");
             res.send(`Location of user: ${req.params.user_id} deleted successfully`);
         })
