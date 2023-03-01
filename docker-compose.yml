@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: activity-microservice
     ports:
-      - "1000:1000"
+      - "3050:3050"
     depends_on:
       -   mongo-activity-container
 
