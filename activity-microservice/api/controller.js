@@ -32,7 +32,10 @@ let controllers = {
         try {
             const activity = new Activity(req.body);
             activity.save((err, result) => {
-                if (err) return res.status(500).send(err);
+                if (err) {
+                    console.log(err)
+                    return res.status(500).send(err);
+                }
                 res.send(result.id);
             });
         } catch (error) {
