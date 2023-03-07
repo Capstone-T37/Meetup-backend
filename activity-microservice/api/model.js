@@ -3,34 +3,37 @@ const Schema = mongoose.Schema;
 
 // Define user schema
 const activitySchema = new Schema({
-    activityId: {
-        type: Number,
-        required: true,
-        unique: true
-    },
     title:{
         type: String,
         required: true,
         unique: true
     },
-    address:{
-        type: String,
+    date: {
+        type: Date,
         required: true
     },
-    category: {
+    address:{
         type: String,
         required: true,
+        unique: true
+    },
+    size: {
+        type: Number,
+        required: true
     },
     description: {
         type: String,
         required: true,
         unique: true
     },
-    price: {
-        type: Number,
+    participants: {
+        type: [Schema.Types.ObjectId],
+        required: true
+    },
+    created_by: {
+        type: Schema.Types.ObjectId,
         required: true
     }
-
 });
 
 module.exports = mongoose.model('Activity', activitySchema);

@@ -14,10 +14,10 @@ db.once('open', () => {
 
 let controllers = {
     root: (_, res) => {
-        res.send("Root endpoint")
+        res.send("Root endpoint - activity")
     },
     getActivity: (req, res) => {
-        Activity.findOne({ activityId: req.params.activityId }, (err, activity) => {
+        Activity.findOne({ _id: req.params.activityId }, (err, activity) => {
             if (err) return res.status(500).send("Internal server error");
             res.send(activity);
         })
@@ -38,19 +38,58 @@ let controllers = {
         } catch (error) {
             res.status(500).send(error);
         }
-
     },
     updateActivity: (req, res) => {
-        Activity.updateOne({ activityId: req.params.activityId }, req.body, (err, activity) => {
+        Activity.updateOne({ _id: req.params.activityId }, req.body, (err, activity) => {
             if (err) return res.status(500).send("Internal server error");
             res.send(activity);
         })
     },
     deleteActivity: (req, res) => {
-        Activity.deleteOne({ activityId: req.params.activityId }, (err) => {
+        Activity.deleteOne({ _id: req.params.activityId }, (err) => {
             if (err) return res.status(500).send("Internal server error");
             res.send(`activity: ${req.params.title} deleted successfully`);
         })
+    },
+    addParticipantToActivity: async (req, res) => {
+        let aId = req.params.activityId
+        let userId = req.params.userId
+        if((typeof aId) === 'string'){
+            aId = mongoose.mongo.ObjectId(aId);
+         }
+        if((typeof userId) === 'string'){
+            userId = mongoose.mongo.ObjectId(userId);
+         }
+        try {
+            await Activity.findByIdAndUpdate(
+                {_id: aId},
+                { $push : {participants: userId}}, 
+                {upsert: true}    
+              );
+              res.send(userId)
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    },
+    removeParticipantFromActivity: async (req, res) => {
+        let aId = req.params.activityId
+        let userId = req.params.userId
+        if((typeof aId) === 'string'){
+            aId = mongoose.mongo.ObjectId(aId);
+         }
+        if((typeof userId) === 'string'){
+            userId = mongoose.mongo.ObjectId(userId);
+         }
+        try {
+            await Activity.findByIdAndUpdate(
+                {_id: aId},
+                { $pull : {participants: userId}}, 
+                {upsert: true}    
+              );
+              res.send(userId)
+        } catch (error) {
+            res.status(500).send(error);
+        }
     }
 };
 
