@@ -1,5 +1,21 @@
 version: '3'
 services:
+  activity-microservice:
+    image: activity-microservice
+    build:
+      context: ./activity-microservice
+      dockerfile: Dockerfile
+    container_name: activity-microservice
+    ports:
+      - "3050:3050"
+    depends_on:
+      -   mongo-activity-container
+
+  mongo-activity-container:
+    image: mongo
+    container_name: mongo-activity-container
+    ports:
+      - "27019:27017"
   user-microservice:
     image: user-microservice
     build:

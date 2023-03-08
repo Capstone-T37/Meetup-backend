@@ -18,3 +18,21 @@ services:
             - "./location-microservice:/usr/src/app"
         depends_on:
             - location-microservice
+
+    activity-microservice:
+        container_name: activity-microservice
+        volumes:
+            - "./activity-microservice:/usr/src/app"
+
+    live-reloader-activity:
+        image: apogiatzis/livereloading
+        container_name: livereloaderactivity
+        privileged: true
+        environment:
+          - RELOAD_DELAY=1.5              # seconds
+          - RELOAD_CONTAINER=activity-microservice
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+            - "./activity-microservice:/usr/src/app"
+        depends_on:
+            - activity-microservice
